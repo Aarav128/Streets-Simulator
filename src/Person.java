@@ -1,10 +1,10 @@
 import java.utll.ArrayList;
 public class Person {
-Private String name;
-Private int age;
-Private boolean isHealthy;//if true no problem if false chance of dying
-Private int salary;
-Private String job;
-Private int popularity;// ranges 1-100
-Private ArrayList<items>;
+private String name;
+private int age;
+private boolean isHealthy;//if true no problem if false chance of dying
+private int salary;
+private String job;
+private int popularity;// ranges 1-100
+private ArrayList<Items> inventory;
 }
