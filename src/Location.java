@@ -21,6 +21,6 @@ public class Location {
     }
 
     public String toString() {
-        return name;
+        return name + ". Adjacent locations: " + adjacentLocations;
     }
 }
