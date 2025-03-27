@@ -2,7 +2,9 @@ public class Game {
     public Game() {
         Player player = new Player();
         Location home = new Location("Home");
-        Location neighborhood = new Location("Neighborhood");
-        neighborhood.createAdjacency(home);
+        Location street = new Location("Street");
+        Location school = new Location("School");
+        school.createAdjacency(street);
+        street.createAdjacency(home);
     }
 }

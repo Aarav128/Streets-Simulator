@@ -7,6 +7,9 @@ public class Location {
     private String name;
 
     public Location(String name) {
+        adjacentLocations = new ArrayList<Location>();
+        characters = new ArrayList<Person>();
+        items = new ArrayList<Item>();
         this.name = name;
     }
     public void createAdjacency(Location other) {
@@ -21,6 +24,6 @@ public class Location {
     }
 
     public String toString() {
-        return name + ". Adjacent locations: " + adjacentLocations;
+        return name;
     }
 }

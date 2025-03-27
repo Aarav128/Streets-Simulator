@@ -7,6 +7,9 @@ public class Person {
     private String job; 
     private int popularity;// ranges 1-100
     private ArrayList<Item> inventory;
+    public Person() {
+        
+    }
     public Person(String name, int age, int health, int salary, String job, int popularity, ArrayList<Item> inventory) {
         this.name = name;
         this.age = age;
