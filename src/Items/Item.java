@@ -1,3 +1,4 @@
+package Items;
 public class Item { // types: Weapon, Food, Car
     private String name;
     private String description;

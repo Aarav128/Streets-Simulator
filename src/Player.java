@@ -1,3 +1,5 @@
+import Items.Item;
+
 public class Player extends Person{
     private NPC mom;
     private NPC dad;

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import Items.Item;
+
 public class Location {
     private ArrayList<Location> adjacentLocations;
     private ArrayList<Person> characters;
