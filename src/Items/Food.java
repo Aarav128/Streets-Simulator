@@ -1,8 +1,14 @@
 package Items;
+import People.*;
 public class Food extends Item {
-    // 
-    private int healthyness;
+    
+    private int healthiness;
+    public Food(String name, String description, int healthiness) {
+        super(name, description, 100, 100);
+        this.healthiness = healthiness;
+    }
     public void use(Player player){
-player.addHelath;
+        super.use();
+       player.addHealth(healthiness);
     }
 }

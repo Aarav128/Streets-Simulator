@@ -1,5 +1,5 @@
 package Items;
 
-public class Vehicle {
-    
+public class Vehicle extends Item{
+
 }

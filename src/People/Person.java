@@ -1,3 +1,4 @@
+package People;
 import java.util.ArrayList;
 import Items.Item;
 import Items.Weapon;
@@ -5,24 +6,26 @@ public class Person {
     private String name;
     private int age;
     private int health;//if true no problem if false chance of dying
-    private int salary;
-    private String job; 
     private int popularity;// ranges 1-100
-    private ArrayList<Item> inventory;
+    private ArrayList<Item> inventory = new ArrayList<Item>();
 
     
     private Weapon weaponSlot;
     public Person() {
         
     }
-    public Person(String name, int age, int health, int salary, String job, int popularity, ArrayList<Item> inventory) {
+    public Person(String name, int age, int health, int popularity, ArrayList<Item> inventory) {
         this.name = name;
         this.age = age;
         this.health = health;
-        this.salary = salary;
-        this.job = job;
         this.popularity = popularity;
         this.inventory = inventory;
+    }
+    public Person(String name, int age, int health, int popularity) {
+        this.name = name;
+        this.age = age;
+        this.health = health;
+        this.popularity = popularity;
     }
     public void equipItem(Item item) {
         inventory.add(item);
@@ -47,5 +50,9 @@ public class Person {
                 }
             }
         }
+    }
+
+    public Weapon getWeaponSlot() {
+        return weaponSlot;
     }
 }

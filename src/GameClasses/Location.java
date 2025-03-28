@@ -1,6 +1,8 @@
+package GameClasses;
 import java.util.ArrayList;
 
 import Items.Item;
+import People.Person;
 
 public class Location {
     private ArrayList<Location> adjacentLocations;
