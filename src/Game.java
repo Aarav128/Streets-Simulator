@@ -1,3 +1,5 @@
+import Items.Item;
+
 public class Game {
     public Game() {
         Player player = new Player("Luke Staley");
@@ -6,5 +8,8 @@ public class Game {
         Location school = new Location("School");
         school.createAdjacency(street);
         street.createAdjacency(home);
+
+
     }
+    
 }

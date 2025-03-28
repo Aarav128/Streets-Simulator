@@ -20,4 +20,8 @@ public class Item { // types: Weapon, Food, Car
             exists = false; // TODO: implement item destruction
         }
     }
+
+    public String toString() {
+        return name;
+    }
 }

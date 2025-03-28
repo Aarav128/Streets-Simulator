@@ -1,17 +1,22 @@
-import Items.Item;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import Items.*;
 
 public class Player extends Person{
     private NPC mom;
     private NPC dad;
     private String name;
     private Location home;
-    private Item itemInHand;
     private double money;
     private boolean hasCar;
     private boolean hasBike;
     private String school;
     private int dailyHours;
     private int usedHours;
+    private int intelligence;
+    private int strength;
+
+    private Vehicle transportation;
     public Player(String name) {
         this.name = name;
     }
@@ -23,4 +28,6 @@ public class Player extends Person{
         this.money = money;
         this.dailyHours = dailyHours;
     }
+
+    
 }
