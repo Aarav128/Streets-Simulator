@@ -1,13 +1,13 @@
 package Items;
 public class Weapon extends Item {
     // TODO
-    int strength;
+    int power;
 
-    public Weapon(String name, String description, int durability, int durabilityPerUse, int strength) {
-        super(name, description, durability, durabilityPerUse);
-        this.strength = strength;
+    public Weapon(String name, String description, int durability, int durabilityPerUse, int power) {
+        super(name, description, durability, durabilityPerUse, 0);
+        this.power = power;
     }
-    public int getStrength() {
-        return strength;
+    public int getPower() {
+        return power;
     }
 }

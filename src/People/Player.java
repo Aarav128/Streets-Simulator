@@ -2,16 +2,13 @@ package People;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import Location;
+import GameClasses.Location;
 import Items.*;
 
 public class Player extends Person{
     private NPC mom;
     private NPC dad;
-    private String name;
     private Location home;
-    private boolean hasCar;
-    private boolean hasBike;
     private String school;
     private int dailyHours;
     private int usedHours;
@@ -23,18 +20,36 @@ public class Player extends Person{
     private double cash;
 
     private Vehicle transportation;
-    public Player(String name) {
-        this.name = name;
-    }
-    public Player(String name, NPC mom,NPC dad, Location home,int cash, int dailyHours){
-        super(name, dailyHours, cash, dailyHours);
-        this.name = name;
+    
+    public Player(Location[][] cityMap, String name, int age, int health, int popularity, NPC mom,NPC dad, Location home,int cash, int dailyHours){
+        super(cityMap, name, age, health, popularity, home);
         this.mom = mom;
         this.dad = dad;
         this.home = home;
         this.cash = cash;
         this.dailyHours = dailyHours;
     }
-
+    public Location getHome() {
+        return home;
+    }
+    public boolean useHours(int hrs) {
+        // change hours stuff
+        // check if day is over
+        return true;
+    }
+    public void moveLocation(Location location) {
+        boolean moved;
+        if (transportation == null) {
+            moved = useHours(3);
+        } else {
+            moved = useHours(3 - transportation.getSpeed());
+        }
+        if (moved) {
+            // remove yourself from prevoius location
+            // add yourself to current location
+            setLocation(location);
+            System.out.println("You traveled to " + location + ".");
+        }
+    }
     
 }
