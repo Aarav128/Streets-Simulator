@@ -13,7 +13,6 @@ public class Player extends Person{
     private int dailyHours;
     private int usedHours;
     private int intelligence;
-    private int strength;
 
     private double salary;
     private String job; 
@@ -21,8 +20,8 @@ public class Player extends Person{
 
     private Vehicle transportation;
     
-    public Player(Location[][] cityMap, String name, int age, int health, int popularity, NPC mom,NPC dad, Location home,int cash, int dailyHours){
-        super(cityMap, name, age, health, popularity, home);
+    public Player(Location[][] cityMap, String name, int age, int health, NPC mom,NPC dad, Location home,int cash, int dailyHours){
+        super(cityMap, name, age, health, Item.EMPTY_INVENTORY, home);
         this.mom = mom;
         this.dad = dad;
         this.home = home;

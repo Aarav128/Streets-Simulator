@@ -21,7 +21,7 @@ public class Game {
             {null, new Location("Street 1"), school},
             {walmart, new Location("Street 2"), new Location("Street 3")}
         };
-        player = new Player(cityMap, "Luke", 12, 100, 0, null, null, home, 0, 10);
+        player = new Player(cityMap, "Luke", 12, 100, null, null, home, 0, 10);
 
         // Item car = new Item("Chair", "Sit on this", 2394, 2, 1);
         // Weapon katana = new Weapon("Katana", "Sharp", 100, 2, 50);
