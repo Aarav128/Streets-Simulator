@@ -28,6 +28,10 @@ public class Player extends Person{
         this.cash = cash;
         this.dailyHours = dailyHours;
     }
+
+
+
+    
     public Location getHome() {
         return home;
     }

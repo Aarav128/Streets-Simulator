@@ -24,6 +24,29 @@ public class Person {
         inventory.add(item);
     }
 
+    public void useItem(Item item) {
+        boolean exists = item.use();
+        if (!exists) {
+            removeItemFromInventory(item);
+        }
+    }
+
+    public int useWeapon() {
+        boolean exists = weaponSlot.use();
+        int power = weaponSlot.getPower();
+        if(!exists) {
+            weaponSlot = null;
+        }
+        return power;
+    }
+
+    public void removeItemFromInventory(Item i) {
+        int index = inventory.indexOf(i);
+        if (index != -1) {
+            inventory.remove(index);
+        }
+    }
+
     public ArrayList<Item> getInventory() {
         return inventory;
     }
