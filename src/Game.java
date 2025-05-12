@@ -70,6 +70,8 @@ public class Game {
         System.out.println("You have spawned");
         System.out.println("The end goal is to kill the villain....");
         System.out.println("But first, I suggest you go to school to meet your dying friend.. and deal with the bully");
+
+        System.out.println("Enter DIE to give up");
         System.out.println("\n\n\n");
         try {
             Thread.sleep(3000);
@@ -87,7 +89,6 @@ public class Game {
 
     public boolean simulateOneDay() {
         if (day != 1) {
-
             for (Location[] row : cityMap) {
                 for (Location loc : row) {
                     if (loc != null) {
@@ -163,6 +164,9 @@ public class Game {
         boolean completedAction = false;
         while (!completedAction) {
             String action = scanner.nextLine();
+            if (action.equals("DIE")) {
+                System.exit(0);
+            }
             switch(action) {
                 case "m":
                     System.out.println("Pick the number of the location you would like to move to.");
@@ -171,9 +175,20 @@ public class Game {
                         System.out.println(i + 1 + ". " + possibleSpots.get(i));
                     }
                     try {
-                        int x = scanner.nextInt() - 1;
+                        int x = -1;
+                        while (!completedAction) {
+                            if (scanner.hasNextInt()) {
+                                x = scanner.nextInt() - 1;
+                                completedAction = true;
+                            }
+                            else if (scanner.nextLine().equals("DIE")) {
+                                System.exit(0);
+                            }
+                        }   
                         Location newLocation = possibleSpots.get(x); 
-                        scanner.nextLine();
+                        if (scanner.nextLine().equals("DIE")) {
+                            System.exit(0);
+                        }
                         player.moveLocation(newLocation);
                     } catch (Exception e) {
                         System.out.println("Please enter a valid number from the ones provided.");
@@ -195,8 +210,16 @@ public class Game {
                                 System.out.println(i + 1 + ". " + items.get(i) + ": " + items.get(i).getDescription());
                             }
                             try {
-                                int index = scanner.nextInt() - 1;
-                                scanner.nextLine();
+                                int index = -1;
+                                while (!completedAction) {
+                                    if (scanner.hasNextInt()) {
+                                        index = scanner.nextInt() - 1;
+                                        completedAction = true;
+                                    }
+                                    else if (scanner.nextLine().equals("DIE")) {
+                                        System.exit(0);
+                                    }
+                                }   
                                 if (index < items.size() && index >= 0) {
                                     Item i = items.get(index); // check for out of bounds
                                     player.getLocation().getItems().remove(index);
@@ -265,11 +288,21 @@ public class Game {
                         System.out.println("Please enter the number of the person you want to interact with");
                         while (!completedAction) {
                             try {
-                                int index = scanner.nextInt();
-                                if (index < 1 || index >= ppl.size()) {
-                                    System.out.println("Invalid response, please try again");
-                                    continue;
+                                boolean response = false;
+                                int index = -1;
+                                while (!response) {
+                                    if (scanner.hasNextInt()) {
+                                        index = scanner.nextInt();
+                                        if (index < 1 || index >= ppl.size()) {
+                                            System.out.println("Invalid response, please try again");
+                                            continue;
+                                        }
+                                        response = true;
+                                    } else if (scanner.nextLine().equals("DIE")) {
+                                        System.exit(0);
+                                    }
                                 }
+                                
                                 NPC n = (NPC)ppl.get(index);
                                 System.out.println(n + ": \"" + n.getPersonality() + "\"");
                                 if (!n.isFightable()) {
@@ -313,13 +346,21 @@ public class Game {
                         System.out.println("You can work up to " + hoursWorkable + " hours. How many would you like to work?");
                         while(!completedAction) {
                             try {
-                                int hoursWorked = scanner.nextInt();
-                                scanner.nextLine();
-                                if(hoursWorked > 0) {
-                                    player.work(hoursWorked);
-                                    completedAction = true;
-                                } else {
-                                    System.out.println("Invalid response, please enter a number in the correct range");
+                                boolean response = false;
+                                int hoursWorked = -1;
+                                while (!response) {
+                                    if(scanner.hasNextInt()) {
+                                        hoursWorked = scanner.nextInt();
+                                    } else if(scanner.nextLine().equals("DIE")) {
+                                        System.exit(0);
+                                    }
+                                    if(hoursWorked > 0) {
+                                        player.work(hoursWorked);
+                                        completedAction = true;
+                                        response = true;
+                                    } else {
+                                        System.out.println("Invalid response, please enter a number in the correct range");
+                                    }
                                 }
                             }
                             catch (Exception e) {
@@ -344,19 +385,25 @@ public class Game {
                             }
                             System.out.println("Select the item you want to buy by its catalog number.");
                             try {
-                                int index = scanner.nextInt() - 1;
-                                scanner.nextLine();
-                                if (index < stock.size() && index >= 0) {
-                                    Item i = stock.get(index); // check for out of bounds
-                                    if (i.getPrice() < player.getCash()) {
-                                        System.out.println("You purchased the " + i);
-                                        walmart.getItems().remove(index);
-                                        player.equipItem(i);
-                                        player.addCash(-i.getPrice());
-                                    } else {
-                                        System.out.println("You're too poor for this. Get your money up and come back.");
+                                int index = -1;
+                                while (!completedAction) {
+                                    if(scanner.hasNextInt()) {
+                                        index = scanner.nextInt();
+                                        if (index < stock.size() && index >= 0) {
+                                            Item i = stock.get(index); // check for out of bounds
+                                            if (i.getPrice() < player.getCash()) {
+                                                System.out.println("You purchased the " + i);
+                                                walmart.getItems().remove(index);
+                                                player.equipItem(i);
+                                                player.addCash(-i.getPrice());
+                                            } else {
+                                                System.out.println("You're too poor for this. Get your money up and come back.");
+                                            }
+                                        }
+                                    } else if(scanner.nextLine().equals("DIE")) {
+                                        System.exit(0);
                                     }
-                                    completedAction = true;
+                                    
                                 }
                             } catch (Exception e) {
                                 System.out.println("Invalid response");
@@ -412,7 +459,16 @@ public class Game {
             System.out.println("You have " + player.getHealth() + " hp remaining.\n");
             System.out.println("Your turn. Hit 1 to attack and 2 to flee");
             try {
-                int action = scanner.nextInt();
+                boolean actionDone = false;
+                int action = 0;
+                while(!actionDone) {
+                    if (scanner.hasNextInt()) {
+                        action = scanner.nextInt();
+                        actionDone = true;
+                    } else if (scanner.nextLine().equals("DIE")) {
+                        System.exit(0);
+                    }
+                }
                 scanner.nextLine();
                 if (action == 1) {
                     int dmg = myPower + (int) (Math.random() * 4 - 4);
