@@ -93,7 +93,7 @@ public class Person {
     }
     public boolean simualateMorning() {
         health += (int)(Math.random() * 10 - 5); // random health change
-        if (Math.random() * 100 >= health) {
+        if (Math.random() * 50 >= health) {
             return false; // death
         }
         return true;

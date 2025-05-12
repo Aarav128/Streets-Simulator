@@ -33,7 +33,7 @@ public class Game {
         @SuppressWarnings("unused")
         NPC friend1 = new NPC("Luke", 100, Item.EMPTY_INVENTORY, school, "Ralph has been terrorizing this school... check to see if you can find any weapons around us.", false);
         @SuppressWarnings("unused")
-        NPC friend2 = new NPC("My Bestie", 10, Item.EMPTY_INVENTORY, school, "I don't have too long.. Ralph already got me... please get him", false);
+        NPC friend2 = new NPC("Dorothy", 10, Item.EMPTY_INVENTORY, school, "I don't have too long.. the big villain got me...", false);
         NPC schoolBully = new NPC("Ralph", 150, Item.EMPTY_INVENTORY, school, "He's the big bad bully. He has a nice car that you want.", true);
         schoolBully.equipItem(new Weapon("Ralph's Fists", "They're stronger than yours", 100, 0, 15));
         schoolBully.equipItem(new Vehicle("Car", "It's very fast", 2));
@@ -67,9 +67,9 @@ public class Game {
             {walmart, new Location("Street 2"), new Location("Street 3")}
         };
         
-        System.out.println("You have spawned");
-        System.out.println("The end goal is to kill the villain....");
-        System.out.println("But first, I suggest you go to school to meet your dying friend.. and deal with the bully");
+        System.out.println("Welcome to Detroit. Life is tough here, but you have the chance to change it here.");
+        System.out.println("The end goal is to kill the villain... and save the streets");
+        System.out.println("But first, I suggest you go to school to meet your dying friend Dorothy.. she might not make it to tomorrow");
 
         System.out.println("Enter DIE at *any time* to give up");
         System.out.println("\n\n\n");
