@@ -12,9 +12,13 @@ public class Person {
     public Person(String name, int health, ArrayList<Item> inventory, Location currentLocation) {
         this.name = name;
         this.health = health;
-        this.inventory = new ArrayList<Item>();
+        this.inventory = inventory;
         this.currentLocation = currentLocation;
-        currentLocation.addCharacter(this);
+        if (this instanceof Player) {
+            currentLocation.addCharacter(0, this);
+        } else {
+            currentLocation.addCharacter(this);
+        }
     }
     public void equipItem(Item item) {
         inventory.add(item);
@@ -77,7 +81,7 @@ public class Person {
 
     public void setLocation(Location newLocation) {
         currentLocation.removeCharacter(this);
-        newLocation.addCharacter(this);
+        newLocation.addCharacter(0, this);
         currentLocation = newLocation;
     }
 
@@ -94,5 +98,10 @@ public class Person {
 
     public String toString() {
         return name;
+    }
+
+    public boolean takeDamage(int dmg) {
+        health -= dmg;
+        return health > 0;
     }
 }

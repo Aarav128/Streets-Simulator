@@ -1,5 +1,7 @@
 package People;
 
+import java.util.ArrayList;
+
 import GameClasses.Location;
 import Items.*;
 
@@ -18,16 +20,17 @@ public class Player extends Person{
     private Vehicle transportation;
     private final int RENT_INCREASE = 5; // per parent missing
     
-    public Player(String name, int health, NPC mom, NPC dad, Location home, int cash, int dailyHours){
-        super(name, health, Item.EMPTY_INVENTORY, home);
+    public Player(String name, int health, NPC mom, NPC dad, Location home, int cash, int dailyHours, ArrayList<Item> playerInventory){
+        super(name, health, playerInventory, home);
         Player.mom = mom;
-        Player.mom = dad;
+        Player.dad = dad;
         this.home = home;
         this.cash = cash;
         this.dailyHours = dailyHours;
         this.employed = false;
         this.intelligence = 35;
     }
+
 
     
     public int getHours() {
@@ -125,6 +128,9 @@ public class Player extends Person{
                 "Somehow, you woke up at home. Lucky you.");
         }
         return awake;
+    }
+    public void addCash(int n) {
+        cash += n;
     }
     public void moveLocation(Location location) {
         boolean moved;

@@ -3,7 +3,7 @@ public class Main{
     Game game = new Game();
     boolean alive = true;
     while (alive) {
-      game.simulateOneDay();
+      alive = game.simulateOneDay();
     }
   }
 }

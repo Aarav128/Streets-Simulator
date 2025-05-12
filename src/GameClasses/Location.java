@@ -36,6 +36,9 @@ public class Location {
     public void addCharacter(Person p) {
         characters.add(p);
     }
+    public void addCharacter(int index, Person p) {
+        characters.add(index, p);
+    }
 
     public void addItem(Item i) {
         items.add(i);

@@ -17,7 +17,7 @@ public class NPC extends Person{
     }
 
     public NPC(String name, int health, ArrayList<Item> inventory, Location currentLocation, String personality, boolean fightable) {
-        super(name, health, Item.EMPTY_INVENTORY, currentLocation);
+        super(name, health, inventory, currentLocation);
         this.fightable = fightable;
         this.personality = personality;
     }
