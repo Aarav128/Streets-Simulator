@@ -1,8 +1,10 @@
 package GameClasses;
 import java.util.ArrayList;
 
+import Items.Food;
 import Items.Item;
 import People.Person;
+import People.Player;
 
 public class Location {
     private ArrayList<Person> characters;
@@ -45,6 +47,35 @@ public class Location {
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public void simulateOneDay() {
+        for (int i = 0; i < items.size(); ++i) {
+            Item item = items.get(i);
+            if(item instanceof Food && item.toString().equals("Breakfast")) {
+                items.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i <characters.size(); i++) {
+            Person p = characters.get(i);
+            if (! (p instanceof Player)) {
+                boolean b = p.simualateMorning();
+                if (!b) {
+                    System.out.println(p + " died overnight.");
+                    characters.remove(i);
+                    i--;
+                    if (p.toString().equals("Mom")) {
+                        Player.momDeath();
+                        System.out.println("Life will be a little harder from now on.");
+                    }
+                    if (p.toString().equals("Dad")) {
+                        Player.dadDeath();
+                        System.out.println("Life will be a little harder from now on.");
+                    }
+                }
+            }
+        }
     }
 
     public void removeCharacter(Person p) {

@@ -5,6 +5,7 @@ import GameClasses.Location;
 import Items.Item;
 import Items.Vehicle;
 import Items.Weapon;
+import Items.Food;
 import People.Player;
 public class Game {
     Location[][] cityMap;
@@ -21,25 +22,31 @@ public class Game {
             {null, new Location("Street 1"), school},
             {walmart, new Location("Street 2"), new Location("Street 3")}
         };
-        player = new Player(cityMap, "Luke", 12, 100, null, null, home, 0, 10);
+        player = new Player(cityMap, "Luke", 100, null, null, home, 0, 10);
 
         // Item car = new Item("Chair", "Sit on this", 2394, 2, 1);
         // Weapon katana = new Weapon("Katana", "Sharp", 100, 2, 50);
         // Weapon bazooka = new Weapon("Bazooka", "U died", 1000, 20, 500)
         simulateOneDay();
-        System.out.println(player.getLocation());
-        System.out.println(home.getCharacters());
 
     }
-
     public void simulateOneDay() {
-        System.out.println("You wake up at home");
+        for (Location[] lol : cityMap) {
+            for (Location loc : lol) {
+                if (loc != null) {
+                    loc.simulateOneDay();
+                }
+            }
+        }
+        player.getHome().addItem(new Food("Breakfast", "Yummy cereal", 5, 2));
         simulateAction();
     }
     
     public void simulateAction() {
+        System.out.println("You are at " + player.getLocation());
+        System.out.println("There are " + player.getHours() + " left in the day");
         System.out.println("What would you like to do?");
-        String display = "1. Travel";
+        String display = "1. Travel between locations";
         // add more actions
         System.out.println(display);
         int action = scanner.nextInt();
@@ -52,7 +59,6 @@ public class Game {
             Location newLocation = possibleSpots.get(scanner.nextInt() - 1); // check for out of bounds
             player.moveLocation(newLocation);
         }
-
     }
 
 

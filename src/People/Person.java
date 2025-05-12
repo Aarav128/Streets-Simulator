@@ -5,16 +5,14 @@ import Items.Weapon;
 import GameClasses.Location;
 public class Person {
     private String name;
-    private int age;
     private int health;//if true no problem if false chance of dying
     private ArrayList<Item> inventory = new ArrayList<Item>();
     private Location[][] cityMap;
     private Weapon weaponSlot;
     private Location currentLocation;
-    public Person(Location[][] cityMap, String name, int age, int health, ArrayList<Item> inventory, Location currentLocation) {
+    public Person(Location[][] cityMap, String name, int health, ArrayList<Item> inventory, Location currentLocation) {
         this.cityMap = cityMap;
         this.name = name;
-        this.age = age;
         this.health = health;
         this.inventory = new ArrayList<Item>();
         this.currentLocation = currentLocation;
@@ -54,6 +52,9 @@ public class Person {
         health += n;
     }
 
+    public int getHealth() {
+        return health;
+    }
 
     public void equipWeapon() {
         for (int i = 0; i < inventory.size(); i++) {
@@ -94,5 +95,9 @@ public class Person {
             return false; // death
         }
         return true;
+    }
+
+    public String toString() {
+        return name;
     }
 }

@@ -6,7 +6,13 @@ public class Vehicle extends Item{
         return speed;
     }
     public Vehicle(String name, String description, int speed) {
-        super(name, description, 100, 0, 0);
+        super(name, description, 100, 10, 0, "");
         this.speed = speed;
+    }
+
+    @Override
+    public boolean use() {
+        System.out.println("Your " + this + " saved you " + speed + " hours on the journey");
+        return super.use();
     }
 }

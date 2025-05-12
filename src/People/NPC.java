@@ -6,9 +6,21 @@ import Items.Item;
 
 public class NPC extends Person{
     private String personality;
+    private boolean fightable;
     
-    public NPC(Location[][] cityMap, String name, int age, int health, ArrayList<Item> inventory, Location currentLocation, String personality) {
-        super(cityMap, name, age, health, Item.EMPTY_INVENTORY, currentLocation);
+    public String getPersonality() {
+        return personality;
+    }
+
+    public boolean isFightable() {
+        return fightable;
+    }
+
+    public NPC(Location[][] cityMap, String name, int health, ArrayList<Item> inventory, Location currentLocation, String personality, boolean fightable) {
+        super(cityMap, name, health, Item.EMPTY_INVENTORY, currentLocation);
+        this.fightable = fightable;
         this.personality = personality;
     }
+
+
 }
