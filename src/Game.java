@@ -71,7 +71,7 @@ public class Game {
         System.out.println("The end goal is to kill the villain....");
         System.out.println("But first, I suggest you go to school to meet your dying friend.. and deal with the bully");
 
-        System.out.println("Enter DIE to give up");
+        System.out.println("Enter DIE at *any time* to give up");
         System.out.println("\n\n\n");
         try {
             Thread.sleep(3000);
