@@ -13,6 +13,10 @@ public class Vehicle extends Item{
     @Override
     public boolean use() {
         System.out.println("Your " + this + " saved you " + speed + " hours on the journey");
-        return super.use();
+        boolean exists = super.use();
+        if (!exists) {
+            System.out.println("Oops! " + this + " broke after that.");
+        }
+        return exists;
     }
 }

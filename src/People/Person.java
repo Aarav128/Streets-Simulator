@@ -7,11 +7,9 @@ public class Person {
     private String name;
     private int health;//if true no problem if false chance of dying
     private ArrayList<Item> inventory = new ArrayList<Item>();
-    private Location[][] cityMap;
     private Weapon weaponSlot;
     private Location currentLocation;
-    public Person(Location[][] cityMap, String name, int health, ArrayList<Item> inventory, Location currentLocation) {
-        this.cityMap = cityMap;
+    public Person(String name, int health, ArrayList<Item> inventory, Location currentLocation) {
         this.name = name;
         this.health = health;
         this.inventory = new ArrayList<Item>();
@@ -70,10 +68,7 @@ public class Person {
     }
 
     public void dropWeapon() {
-        if (weaponSlot != null) {
-            Weapon c = weaponSlot;
-
-        }
+       weaponSlot = null;    
     }
 
     public Location getLocation() {

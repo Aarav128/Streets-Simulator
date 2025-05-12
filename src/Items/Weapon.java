@@ -21,7 +21,11 @@ public class Weapon extends Item {
         } else {
             System.out.println(holder + "'s " + this + " did " + power + " damage to you!");
         }
-        return super.use();
+        boolean exists = super.use();
+        if (!exists) {
+            System.out.println("Oops! " + this + " broke after that.");
+        }
+        return exists;
     }
 
 

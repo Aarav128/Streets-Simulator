@@ -49,7 +49,7 @@ public class Location {
         return items;
     }
 
-    public void simulateOneDay() {
+    public void simulateMorning() {
         for (int i = 0; i < items.size(); ++i) {
             Item item = items.get(i);
             if(item instanceof Food && item.toString().equals("Breakfast")) {
