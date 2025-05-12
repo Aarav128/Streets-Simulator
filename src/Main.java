@@ -6,7 +6,7 @@ public class Main{
       while (alive) {
         alive = game.simulateOneDay();
       }
-      System.out.println("You will respawn momentarily to try again");
+      System.out.println("That's kind of sad... but I'm nice enough to give you another chance.");
       try {
         Thread.sleep(3000);
       } catch (InterruptedException e) {
