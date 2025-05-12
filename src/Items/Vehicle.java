@@ -6,7 +6,11 @@ public class Vehicle extends Item{
         return speed;
     }
     public Vehicle(String name, String description, int speed) {
-        super(name, description, 100, 10, 0, "");
+        super(name, description, 100, 4, 0, "");
+        this.speed = speed;
+    }
+    public Vehicle(String name, String description, int speed, int price) {
+        super(name, description, 100, 0, 0, "", price);
         this.speed = speed;
     }
 

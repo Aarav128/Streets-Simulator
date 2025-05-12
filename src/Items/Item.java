@@ -9,6 +9,7 @@ public class Item { // types: Weapon, Food, Car
     private int durabilityPerUse;
     private String usageMessage;
     private int hoursPerUse;
+    private int price;
     public static ArrayList<Item> EMPTY_INVENTORY = new ArrayList<Item>();
     public Item(String name, String description, int durability, int durabilityPerUse, int hoursPerUse, String usageMessage) {
         this.name = name;
@@ -17,6 +18,20 @@ public class Item { // types: Weapon, Food, Car
         this.durabilityPerUse = durabilityPerUse;
         this.hoursPerUse = hoursPerUse;
         this.usageMessage = usageMessage;
+    }
+    //For walmart
+    public Item(String name, String description, int durability, int durabilityPerUse, int hoursPerUse, String usageMessage, int price) {
+        this.name = name;
+        this.description = description;
+        this.durability = durability;
+        this.durabilityPerUse = durabilityPerUse;
+        this.hoursPerUse = hoursPerUse;
+        this.usageMessage = usageMessage;
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public String getDescription() {

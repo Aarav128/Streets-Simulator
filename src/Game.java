@@ -18,32 +18,71 @@ public class Game {
     Location home;
     int day = 1;
     public Game() {
+        // Create the city
         scanner = new Scanner(System.in);
         home = new Location("Home");
         school = new Location("School");
         walmart = new Location("Walmart");
-        
+
+        Location dangerVille = new Location("Dangerous Street");
+        ArrayList<Item> villainsWeapon = new ArrayList<Item>();
+        villainsWeapon.add(new Weapon("Pistol", "It's very deadly", 100, 3, 40));
+        NPC boss = new NPC("Big Villain (scary)", 400, villainsWeapon, dangerVille, "He's really scary.", true);
+        boss.equipWeapon();
+
+        @SuppressWarnings("unused")
+        NPC friend1 = new NPC("Luke", 100, Item.EMPTY_INVENTORY, school, "Ralph has been terrorizing this school... check to see if you can find any weapons around us.", false);
+        @SuppressWarnings("unused")
+        NPC friend2 = new NPC("My Bestie", 10, Item.EMPTY_INVENTORY, school, "I don't have too long.. Ralph already got me... please get him", false);
+        NPC schoolBully = new NPC("Ralph", 150, Item.EMPTY_INVENTORY, school, "He's the big bad bully. He has a nice car that you want.", true);
+        schoolBully.equipItem(new Weapon("Ralph's Fists", "They're stronger than yours", 100, 0, 15));
+        schoolBully.equipItem(new Vehicle("Car", "It's very fast", 2));
+        school.addItem(new Weapon("Glass shard", "Sharp", 30, 10, 45));
+
+        ArrayList<Item> playerInventory = new ArrayList<Item>();
+        playerInventory.add(new Food("Energy Drink","Drink in moderation", -10, 8));
+        playerInventory.add(new Food("Energy Drink","Drink in moderation", -10, 8));
+        playerInventory.add(new Item("Phone", "It's a waste of time.", 100, 1, 4, "You just wasted four entire hours of your day."));
+        home.addItem(new Vehicle("Bike", "It's kinda fast", 1));
+        home.addItem(new Item("IPad", "Let's have fun.", 100, 0, 2, "You just wasted two hours playing Roblox"));
+        player = new Player("Player", 100, new NPC("Mom", (int)(Math.random() * 50) + 30, Item.EMPTY_INVENTORY, home, "Hi son! Hope you're doing well.", true), new NPC("Dad", (int)(Math.random() * 70 + 30), Item.EMPTY_INVENTORY, home, "Hi son! Hope you're doing well.", false), home, 40, 16, playerInventory);
+
+
+        for (int i = 0; i < 5; i++) {
+            walmart.addItem(new Food("Health Bar", "It's good for your health", 20, 1, 4));
+        }
+
+        for (int i = 0; i < 5; i++) {
+            walmart.addItem(new Food("Coffee", "Don't go overboard.", -4, 3, 6));
+        }
+
+        walmart.addItem(new Weapon("Knife", "Sharp", 100, 15, 20, 100));
+        walmart.addItem(new Vehicle("Racecar", "It takes you places practically instantly", 3, 250));
+        walmart.addItem(new Vehicle("Time Machine Teleportation Device", "It takes you places in negative time", 4, 10000));
+
+
         cityMap = new Location[][]{ 
             {null, home, null},
-            {null, new Location("Street 1"), school},
+            {dangerVille, new Location("Street 1"), school},
             {walmart, new Location("Street 2"), new Location("Street 3")}
         };
-        ArrayList<Item> playerInventory = new ArrayList<Item>();
-        playerInventory.add(new Weapon("Knife", "Sharp", 100, 20, 20));
-        ArrayList<Item> momInventory = new ArrayList<Item>();
-        momInventory.add(new Weapon("Knife", "Sharp", 30, 20, 20));
+        
+        System.out.println("You have spawned");
+        System.out.println("The end goal is to kill the villain....");
+        System.out.println("But first, I suggest you go to school to meet your dying friend.. and deal with the bully");
+        System.out.println("\n\n\n");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        player = new Player("Luke", 500, new NPC("Mom", (int)(Math.random() * 70 + 30), Item.EMPTY_INVENTORY, home, "Hi son! Hope you're doing well.", false), new NPC("Dad", (int)(Math.random() * 70 + 30), Item.EMPTY_INVENTORY, home, "Hi son! Hope you're doing well.", false), home, 0, 16, playerInventory);
-        // Item car = new Item("Chair", "Sit on this", 2394, 2, 1);
-        // Weapon katana = new Weapon("Katana", "Sharp", 100, 2, 50);
-        // Weapon bazooka = new Weapon("Bazooka", "U died", 1000, 20, 500)
-        System.out.println(player.getInventory());
-        player.equipWeapon();
-        System.out.println(player.getWeaponSlot());
 
     }
     void gameOver() {
-
+        System.out.println("Welp... you died. Better luck next time");
+        System.out.println("You lived for " + day + " days");
+        System.out.println("You died with $" + player.getCash() + " on hand");
     }
 
     public boolean simulateOneDay() {
@@ -64,13 +103,23 @@ public class Game {
                 return false;
             }
         }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         home.addItem(new Food("Breakfast", "Eat this to have a productive day", (int) (Math.random() * 4 + 3), (int) (Math.random() * 2 + 1)));
-
+        System.out.println("Today is day " + day);
         while(player.getRemainingHours() > 0) {
             if(!simulateAction()) {
                 gameOver();
                 return false;
             };
+            try {
+                Thread.sleep(1000); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         day++;
@@ -89,9 +138,11 @@ public class Game {
         boolean canSchool = player.getLocation().equals(school);
         boolean canBeHired = !player.isEmployed() && player.getLocation().equals(walmart);
         boolean canWork = player.isEmployed() && player.getLocation().equals(walmart);
+        boolean canBuy = player.getLocation().equals(walmart);
+        boolean canSleep = player.getLocation().equals(home);
 
 
-        // m, i, u, t, s, h, w
+        // m, i, u, t, s, h, w, p, n
         if (canSchool) {
             display += "\n(s) Spend some time at school";
         }
@@ -100,6 +151,12 @@ public class Game {
         }
         if (canWork) {
             display += "\n(w) Work for some cash";
+        }
+        if (canBuy) {
+            display += "\n(p) Buy something from Walmart";
+        }
+        if (canSleep) {
+            display += "\n(n) Sleep the night away";
         }
 
         System.out.println(display);
@@ -113,40 +170,45 @@ public class Game {
                     for (int i = 0; i < possibleSpots.size(); i++) {
                         System.out.println(i + 1 + ". " + possibleSpots.get(i));
                     }
-                    while (!completedAction) {
-                        try {
-                            Location newLocation = possibleSpots.get(scanner.nextInt() - 1); 
-                            scanner.nextLine();
-                            player.moveLocation(newLocation);
-                            completedAction = true;
-                        } catch (Error e) {
-                            System.out.println("Please enter a valid number from the ones provided.");
-                        }
-                    }                
+                    try {
+                        int x = scanner.nextInt() - 1;
+                        Location newLocation = possibleSpots.get(x); 
+                        scanner.nextLine();
+                        player.moveLocation(newLocation);
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid number from the ones provided.");
+                    }             
+
+                    completedAction = true;
                     break;
                 case "i":
-                    ArrayList<Item> items = player.getLocation().getItems(); 
-                    if (items.size() == 0){
-                        System.out.println("There is nothing here.");
+                    if(player.getLocation().equals(walmart)) {
+                        completedAction = true;
+                        System.out.println("You need money to get stuff from walmart");
                     } else {
-                        System.out.println("You can pick up an item instantly. Pick the number of the item you'd like to pick up, otherwise enter 0");
-                        for (int i = 0; i < items.size(); i++) {
-                            System.out.println(i + 1 + ". " + items.get(i) + ": " + items.get(i).getDescription());
-                        }
-                        try {
-                            int index = scanner.nextInt() - 1;
-                            scanner.nextLine();
-                            if (index < items.size() && index >= 0) {
-                                Item i = items.get(index); // check for out of bounds
-                                player.getLocation().getItems().remove(index);
-                                player.equipItem(i);
-                                System.out.println("You picked up the " + i);
+                        ArrayList<Item> items = player.getLocation().getItems(); 
+                        if (items.size() == 0){
+                            System.out.println("There is nothing here.");
+                        } else {
+                            System.out.println("You can pick up an item instantly. Pick the number of the item you'd like to pick up, otherwise enter 0");
+                            for (int i = 0; i < items.size(); i++) {
+                                System.out.println(i + 1 + ". " + items.get(i) + ": " + items.get(i).getDescription());
                             }
-                        } catch (Exception e) {
-                            System.out.println("Invalid response");
+                            try {
+                                int index = scanner.nextInt() - 1;
+                                scanner.nextLine();
+                                if (index < items.size() && index >= 0) {
+                                    Item i = items.get(index); // check for out of bounds
+                                    player.getLocation().getItems().remove(index);
+                                    player.equipItem(i);
+                                    System.out.println("You picked up the " + i);
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Invalid response");
+                            }
                         }
+                        completedAction = true;
                     }
-                    completedAction = true;
                     break;
                 case "u":
                     ArrayList<Item> inventory = player.getInventory(); 
@@ -195,6 +257,7 @@ public class Game {
                     ArrayList<Person> ppl = player.getLocation().getCharacters();
                     if(ppl.size() == 1) {
                         System.out.println("You are the only one here"); 
+                        completedAction = true;
                     } else {
                         for (int i = 1; i < ppl.size(); i++) {
                             System.out.println(i + ": " + ppl.get(i));
@@ -211,6 +274,7 @@ public class Game {
                                 System.out.println(n + ": \"" + n.getPersonality() + "\"");
                                 if (!n.isFightable()) {
                                     System.out.println("This person has nothing else to say. Press enter to continue");
+                                    scanner.nextLine();
                                     completedAction = true;
                                 } else {
                                     System.out.println(n + " is angry! Get ready to fight");
@@ -223,6 +287,92 @@ public class Game {
                             }
                         }
                     }
+                    break;
+                case "s":
+                    if (!canSchool) {
+                        System.out.println("Invalid action");
+                    } else {
+                        player.goToSchool();
+                    }
+                    completedAction = true;
+                    break;
+                case "h":
+                    if (!canBeHired) {
+                        System.out.println("Invalid action");
+                    } else {
+                        player.getHired("Walmart");
+                    }
+                    completedAction = true;
+                    break;
+                case "w":
+                    if (!canWork) {
+                        System.out.println("Invalid action");
+                        completedAction = true;
+                    } else {
+                        int hoursWorkable = player.getRemainingHours() > 8 ? 8 : player.getRemainingHours();
+                        System.out.println("You can work up to " + hoursWorkable + " hours. How many would you like to work?");
+                        while(!completedAction) {
+                            try {
+                                int hoursWorked = scanner.nextInt();
+                                scanner.nextLine();
+                                if(hoursWorked > 0) {
+                                    player.work(hoursWorked);
+                                    completedAction = true;
+                                } else {
+                                    System.out.println("Invalid response, please enter a number in the correct range");
+                                }
+                            }
+                            catch (Exception e) {
+                                System.out.println("Invalid response, please enter a number in the correct range");
+                            }
+                        }
+                    }
+                    break;
+                case "p":
+                    if (!canBuy) {
+                        System.out.println("Invalid action");
+                        completedAction = true;
+                    } else {
+                        ArrayList<Item> stock = walmart.getItems();
+                        if(stock.size() == 0) {
+                            System.out.println("Oops! We're all out!");
+                        } else {
+                            System.out.println("Welcome to Walmart! Here's what we have today.");
+                            for (int i = 0; i < stock.size(); i++) {
+                                Item item = stock.get(i);
+                                System.out.println((i + 1) + ". $" + item.getPrice() + " - " + stock.get(i) + ": " + item.getDescription());
+                            }
+                            System.out.println("Select the item you want to buy by its catalog number.");
+                            try {
+                                int index = scanner.nextInt() - 1;
+                                scanner.nextLine();
+                                if (index < stock.size() && index >= 0) {
+                                    Item i = stock.get(index); // check for out of bounds
+                                    if (i.getPrice() < player.getCash()) {
+                                        System.out.println("You purchased the " + i);
+                                        walmart.getItems().remove(index);
+                                        player.equipItem(i);
+                                        player.addCash(-i.getPrice());
+                                    } else {
+                                        System.out.println("You're too poor for this. Get your money up and come back.");
+                                    }
+                                    completedAction = true;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("Invalid response");
+                            }
+                        }
+                    }
+                    break;
+                case "n":
+                    if (!player.getLocation().equals(home)) {
+                        System.out.println("Invalid action");
+                    }
+                    else {
+                        player.sleep();
+                    }
+                    completedAction = true;
+                    break;
                 default:
                     System.out.println("Invalid action");
             }
@@ -258,6 +408,8 @@ public class Game {
 
         
         while (fighting) {
+            System.out.println(n + " has " + n.getHealth() + " hp remaining.");
+            System.out.println("You have " + player.getHealth() + " hp remaining.\n");
             System.out.println("Your turn. Hit 1 to attack and 2 to flee");
             try {
                 int action = scanner.nextInt();
@@ -341,7 +493,7 @@ public class Game {
                 }
 
                 System.out.println("You took " + dmg + " damage.");
-                boolean lost = !n.takeDamage(dmg);
+                boolean lost = !player.takeDamage(dmg);
                 if (lost) {
                     System.out.println("You could not get up after that fatal strike.");
                     return false;
@@ -349,6 +501,7 @@ public class Game {
             } else {
                 System.out.println(n + " stalls");
             }
+            System.out.println("\n\n\n");
         }
         return true;
     }

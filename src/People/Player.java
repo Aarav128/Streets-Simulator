@@ -36,13 +36,29 @@ public class Player extends Person{
     public int getHours() {
         return dailyHours - usedHours;
     }
-
+    public void sleep() {
+        usedHours = dailyHours;
+        System.out.println("You slept the night");
+    }
     public void getHired(String jobTitle) {
         if (intelligence > 50) {
             System.out.println("Congratulations! You have been hired. Make sure you keep yourself constantly educated so you can work well");
             employed = true;
             salary = 5;
+        } else {
+            System.out.println("You were so dumb that you failed the interview. Better up that intelligence");
         }
+    }
+
+    public void equipItem(Item item) {
+        if (item instanceof Vehicle) {
+            if (transportation != null && !getLocation().toString().equals("Walmart")) {
+                getLocation().addItem(transportation);
+            }
+            transportation = (Vehicle)item;
+        } else {
+            super.equipItem(item);
+        }  
     }
 
     public void work(int hours) {
@@ -58,10 +74,10 @@ public class Player extends Person{
 
 
     public void goToSchool() {
-        if (dailyHours - usedHours > 10) {
-            useHours(4);
+        if (getRemainingHours() >= 9) {
+            useHours(7);
             System.out.println("You went to school. You spent a lot of hours there, but you feel smarter");
-            intelligence += 5;
+            intelligence += (int) (Math.random() * 4 + 4);
         } 
         else {
             System.out.println("School's closed");
@@ -125,7 +141,7 @@ public class Player extends Person{
         boolean awake = usedHours < dailyHours;
         if(!awake) {
             System.out.println("In the process of doing that, you fell asleep. \n" +
-                "Somehow, you woke up at home. Lucky you.");
+                "Somehow, you woke up at home. Lucky you.\nNext time, sleep in your home.");
         }
         return awake;
     }

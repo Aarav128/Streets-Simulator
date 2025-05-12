@@ -64,6 +64,9 @@ public class Person {
             if (item instanceof Weapon) {
                 if (weaponSlot == null || ((Weapon)item).getPower() > weaponSlot.getPower()) {
                     Weapon weapon = (Weapon)inventory.remove(i);
+                    if(weaponSlot != null) {
+                        currentLocation.addItem(weaponSlot);
+                    }
                     weaponSlot = weapon;
                     i--;
                 }
